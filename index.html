@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>頌昇工程師有限公司 - 專業註冊結構工程顧問公司</title>
+    <style>
+        /* 全域基本樣式 */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: "Helvetica Neue", Arial, "Microsoft JhengHei", sans-serif;
+            line-height: 1.8;
+            color: #333333;
+            background-color: #f4f6f9;
+            padding-top: 80px; /* 為頂部固定導覽列預留空間 */
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* 頂部固定導覽列 */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background-color: #1a365d; /* 配合標誌的深藍色 */
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+            z-index: 1000;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+            padding: 0 20px;
+        }
+        .logo-container {
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+        .logo-img {
+            height: 60px; /* 完美適配導覽列高度 */
+            width: auto;
+            border-radius: 4px;
+        }
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        .nav-links li {
+            margin-left: 25px;
+        }
+        .nav-links a {
+            color: #e2e8f0;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        .nav-links a:hover {
+            color: #f39c12;
+        }
+
+        /* 主視覺橫幅 */
+        header {
+            background: linear-gradient(135deg, rgba(26, 54, 93, 0.95) 0%, rgba(43, 108, 176, 0.9) 100%), 
+                        url('https://unsplash.com') no-repeat center center/cover;
+            color: #ffffff;
+            padding: 100px 20px;
+            text-align: center;
+            border-bottom: 5px solid #f39c12;
+        }
+        header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.4);
+        }
+        header h2 {
+            font-size: 1.6rem;
+            font-weight: 400;
+            margin-bottom: 25px;
+            color: #e2e8f0;
+        }
+        header p {
+            font-size: 1.3rem;
+            margin-bottom: 35px;
+            color: #f1c40f;
+            font-weight: 500;
+        }
+        .btn-contact {
+            display: inline-block;
+            background-color: #f39c12;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 15px 45px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .btn-contact:hover {
+            background-color: #e67e22;
+            transform: translateY(-2px);
+        }
+
+        /* 內容區塊樣式 */
+        section {
+            background: #ffffff;
+            margin: 40px 0;
+            padding: 45px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+        .section-header-title {
+            font-size: 1.8rem;
+            color: #1a365d;
+            margin-bottom: 15px;
+            border-left: 5px solid #1a365d;
+            padding-left: 15px;
+        }
+        .section-subtitle {
+            font-size: 1.3rem;
+            color: #f39c12;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        .section-intro {
+            font-size: 1.05rem;
+            color: #555555;
+            margin-bottom: 25px;
+            text-align: justify;
+        }
+
+        /* 項目列表樣式 */
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        ul li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 15px;
+            font-size: 1rem;
+        }
+        ul li::before {
+            content: "■";
+            position: absolute;
+            left: 0;
+            color: #f39c12;
+            font-size: 0.9rem;
+            top: 2px;
+        }
+        strong {
+            color: #111111;
+            font-weight: bold;
+        }
+
+        /* 聯絡表單網格佈局 */
+        .contact-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+        .form-group label {
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #4a5568;
+        }
+        .form-group input, .form-group textarea {
+            padding: 12px;
+            border: 1px solid #cbd5e0;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        .btn-submit {
+            grid-column: span 2;
+            background-color: #1a365d;
+            color: white;
+            padding: 14px;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .btn-submit:hover {
+            background-color: #2b6cb0;
+        }
+
+        /* 頁尾樣式 */
+        footer {
+            background-color: #2d3748;
+            color: #ffffff;
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 60px;
+            font-size: 0.95rem;
+            border-top: 4px solid #1a365d;
+        }
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .footer-email {
+            margin-top: 15px;
+            font-size: 1.1rem;
+        }
+        .footer-email a {
+            color: #f1c40f;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        .footer-email a:hover {
+            color: #f39c12;
+            text-decoration: underline;
+        }
+
+        /* 行動裝置介面最佳化過渡點 */
+        @media (max-width: 768px) {
+            body { padding-top: 130px; }
+            .nav-container {
+                flex-direction: column;
+                padding: 10px;
+                height: auto;
+            }
+            .nav-links {
+                margin-top: 10px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .nav-links li {
+                margin: 5px 10px;
+            }
+            .contact-form {
+                grid-template-columns: 1fr;
+            }
+            .form-group.full-width, .btn-submit {
+                grid-column: span 1;
+            }
+            header h1 { font-size: 2.2rem; }
+            header h2 { font-size: 1.3rem; }
+            section { padding: 25px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 頂部固定置頂導覽選單 -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo-container">
+                <!-- 讀取您存放在資料夾中的 logo.jpg 檔案 -->
+                <img src="logo.jpg" alt="頌昇工程師有限公司 Logo" class="logo-img">
+            </div>
+            <ul class="nav-links">
+                <li><a href="#about-us">關於我們</a></li>
+                <li><a href="#aa-design">1. 改建及加建</a></li>
+                <li><a href="#rse-services">2. 法定 RSE 簽證</a></li>
+                <li><a href="#temp-works">3. 承建商臨時工程</a></li>
+                <li><a href="#contact-us">聯絡我們</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 企業品牌主視覺區塊 -->
+    <header>
+        <div class="container">
+            <h1>頌昇工程師有限公司</h1>
+            <h2>專業註冊結構工程顧問公司</h2>
+            <p>一站式、高品質的結構工程解決方案</p>
+            <a href="#contact-us" class="btn-contact">立即諮詢</a>
+        </div>
+    </header>
+
+    <!-- 網頁核心內容容器 -->
+    <main class="container">
+        
+        <!-- 關於我們區塊 -->
+        <section id="about-us">
+            <h3 class="section-header-title">關於我們</h3>
+            <div class="section-subtitle">我們的核心服務</div>
+            <p class="section-intro">我們是一家專業的結構工程顧問公司，致力於為客戶提供一站式、高品質的結構工程解決方案。我們擁有經驗豐富的專業設計團隊，並全面提供註冊結構工程師（Registered Structural Engineer, RSE）的法定服務。不論是商用空間、住宅項目還是大型基礎設施，我們皆能平衡成本與結構安全，確保項目順利合法落實。</p>
+        </section>
+
+        <!-- 第 1 部分：改建及加建結構設計 -->
+        <section id="aa-design">
+            <h3 class="section-header-title">1. 改建及加建（A&A）結構設計</h3>
+            <p class="section-intro">我們專注透過現有樓宇的結構改造，提升資產價值，並確保順利取得屋宇署（BD）批准。</p>
+            <ul>
+                <li><strong>結構改動：</strong>新樓板開口、樓梯改造。</li>
+                <li><strong>BD 申請文件：</strong>準備結構圖則、地基圖則及結構計算書，以供正式提交屋宇署審批。</li>
+            </ul>
+        </section>
+
+        <!-- 第 2 部分：法定註冊結構工程師簽證 -->
+        <section id="rse-services">
+            <h3 class="section-header-title">2. 法定 &lt;&lt;註冊結構工程師&gt;&gt; 簽證及小型工程</h3>
+            <p class="section-intro">作為合法認可的 RSE 顧問，我們提供《建築物條例》下所需的法定簽署及工程監督。</p>
+            <ul>
+                <li><strong>I 級小型工程：</strong>為複雜小型工程提供完整結構設計、計算及法定簽署（MW01 及 MW02 表格）。</li>
+                <li><strong>法定核證計劃：</strong>根據及按照合約要求提供項目 / 獨立註冊結構工程師認證服務。</li>
+            </ul>
+        </section>
+
+        <!-- 第 3 部分：承建商臨時工程設計 -->
+        <section id="temp-works">
+            <h3 class="section-header-title">3. 承建商臨時工程</h3>
+            <p class="section-intro">我們作為承建商的靈活工程夥伴，提供快速、安全及實用的臨時工程設計。</p>
+              <ul>
+                <li><strong>拆卸工程：</strong>制定安全拆卸程序、樓宇穩定性評估及結構支撐佈置。</li>
+                <li><strong>挖掘及側向支撐（ELS）：</strong>設計鋼板樁、工字鋼支撐樁及多層支撐系統。</li>
+                 <li><strong>地盤設施及機械支撐：</strong>設計及獨立審核塔式起重機基礎、重型棚架及模板支架。</li>
+            </ul>
+        </section>
+
+        
+        
+        
+        
+        © 2026 頌昇工程師有限公司 Chung Rising Engineers Limited. 版權所有。
+        電子郵件：info@chungrising.com
+        
