@@ -76,11 +76,9 @@
             color: #f39c12;
         }
 
-        /* 主視覺橫幅 */
-header {
-            /* Modified transparency values to 0.4 and 0.3 for a clearer view of banner01.jpg */
-            background: linear-gradient(135deg, rgba(26, 54, 93, 0.4) 0%, rgba(43, 108, 176, 0.3) 100%), 
-                        url('banner01.jpg') no-repeat center center/cover;
+        /* 主視覺橫幅 - 藍色色塊已完全移除 */
+        header {
+            background: url('banner01.jpg') no-repeat center center/cover;
             color: #ffffff;
             padding: 100px 20px;
             text-align: center;
@@ -90,19 +88,21 @@ header {
             font-size: 2.8rem;
             margin-bottom: 10px;
             letter-spacing: 1px;
-            text-shadow: 1px 1px 4px rgba(0,0,0,0.4);
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.8); /* 增強陰影，確保在任何相片上都清晰可見 */
         }
         header h2 {
             font-size: 1.6rem;
             font-weight: 400;
             margin-bottom: 25px;
             color: #e2e8f0;
+            text-shadow: 1px 1px 6px rgba(0,0,0,0.8);
         }
         header p {
             font-size: 1.3rem;
             margin-bottom: 35px;
             color: #f1c40f;
             font-weight: 500;
+            text-shadow: 1px 1px 6px rgba(0,0,0,0.8);
         }
         .btn-contact {
             display: inline-block;
@@ -282,7 +282,6 @@ header {
     <nav>
         <div class="nav-container">
             <div class="logo-container">
-                <!-- 讀取您存放在資料夾中的 logo1.jpg 檔案 -->
                 <img src="logo1.jpg" alt="頌昇工程師公司 Logo" class="logo-img">
             </div>
             <ul class="nav-links">
@@ -302,9 +301,8 @@ header {
             <h2>專業註冊結構工程顧問公司</h2>
             <p>一站式、高品質的結構工程解決方案</p>
             <a href="mailto:info@chungrising.com">
-                
-    <button>立即諮詢</button>
-</a>
+                <button class="btn-contact">立即諮詢</button>
+            </a>
         </div>
     </header>
 
