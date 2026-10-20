@@ -78,7 +78,7 @@
 
         /* 主視覺橫幅 - 藍色色塊已完全移除 */
         header {
-            background: url('banner01.jpeg') no-repeat center center/cover;
+            background: url('banner01.jpg') no-repeat center center/cover;
             color: #ffffff;
             padding: 100px 20px;
             text-align: center;
@@ -104,6 +104,12 @@
             font-weight: 500;
             text-shadow: 1px 1px 6px rgba(0,0,0,0.8);
         }
+        .banner-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
         .btn-contact {
             display: inline-block;
             background-color: #f39c12;
@@ -119,6 +125,34 @@
         .btn-contact:hover {
             background-color: #e67e22;
             transform: translateY(-2px);
+        }
+        
+        /* 新增的 WhatsApp 按鈕樣式 */
+        .btn-whatsapp {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background-color: #25D366; /* WhatsApp 官方綠色 */
+            color: #ffffff;
+            text-decoration: none;
+            padding: 15px 35px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border: none;
+            cursor: pointer;
+        }
+        .btn-whatsapp:hover {
+            background-color: #128C7E; /* 懸停時的暗綠色 */
+            transform: translateY(-2px);
+        }
+        .whatsapp-icon {
+            width: 24px;
+            height: 24px;
+            fill: #ffffff;
         }
 
         /* 內容區塊樣式 */
@@ -273,6 +307,8 @@
             header h1 { font-size: 2.2rem; }
             header h2 { font-size: 1.3rem; }
             section { padding: 25px; }
+            .banner-buttons { flex-direction: column; gap: 10px; align-items: center; }
+            .btn-contact, .btn-whatsapp { width: 100%; max-width: 300px; }
         }
     </style>
 </head>
@@ -300,8 +336,15 @@
             <h1>頌昇工程師公司</h1>
             <h2>專業註冊結構工程顧問公司</h2>
             <p>一站式、高品質的結構工程解決方案</p>
-            <a href="mailto:info@chungrising.com">
-                <button class="btn-contact">立即諮詢</button>
+            <div class="banner-buttons">
+                <a href="mailto:info@chungrising.com">
+                    <button class="btn-contact">立即諮詢</button>
+                </a>
+                
+                <!-- 請在此處替換 85212345678 為您的真實電話號碼（包含國家/地區代碼，例如香港是 852） -->
+                <a href="https://wa.me" target="852 96378770">
+                    <button class="btn-whatsapp">
+
             </a>
         </div>
     </header>
