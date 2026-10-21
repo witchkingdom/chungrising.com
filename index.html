@@ -6,351 +6,570 @@
     <title>頌昇工程師公司 - 專業註冊結構工程顧問公司</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     <style>
-        /* 全域基本樣式 */
+        :root {
+            --navy: #14264a;
+            --navy-dark: #0d1b36;
+            --blue: #2563eb;
+            --gold: #f5b301;
+            --orange: #f97316;
+            --green: #25d366;
+            --green-dark: #128c7e;
+            --text: #1f2937;
+            --muted: #55637a;
+            --light: #f3f6fb;
+            --white: #ffffff;
+            --shadow: 0 10px 30px rgba(15, 23, 42, .08);
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
+
         html {
             scroll-behavior: smooth;
-        }
-        body {
-            font-family: "Helvetica Neue", Arial, "Microsoft JhengHei", sans-serif;
-            line-height: 1.8;
-            color: #333333;
-            background-color: #f4f6f9;
-            padding-top: 80px; /* 為頂部固定導覽列預留空間 */
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
+            scroll-padding-top: 90px;
         }
 
-        /* 頂部固定導覽列 */
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 80px;
-            background-color: #1a365d; /* 配合標誌的深藍色 */
-            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
-            z-index: 1000;
+        body {
+            font-family: "Helvetica Neue", Arial, "Microsoft JhengHei", "PingFang TC", sans-serif;
+            line-height: 1.8;
+            color: var(--text);
+            background:
+                radial-gradient(circle at 10% 10%, rgba(37, 99, 235, .08), transparent 35%),
+                radial-gradient(circle at 90% 20%, rgba(245, 179, 1, .10), transparent 35%),
+                var(--light);
         }
-        .nav-container {
-            max-width: 1200px;
+
+        .container {
+            width: min(1180px, 100%);
             margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 100%;
             padding: 0 20px;
         }
+
+        /* ===================== Navigation ===================== */
+        .site-header {
+            position: fixed;
+            inset: 0 0 auto 0;
+            z-index: 1000;
+            background: rgba(13, 27, 54, .96);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, .18);
+        }
+
+        .nav-container {
+            min-height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
         .logo-container {
             display: flex;
             align-items: center;
-            height: 100%;
-        }
-        .logo-img {
-            height: 60px; /* 完美適配導覽列高度 */
-            width: auto;
-            border-radius: 4px;
-        }
-        .nav-links {
-            display: flex;
-            list-style: none;
-        }
-        .nav-links li {
-            margin-left: 25px;
-        }
-        .nav-links a {
-            color: #e2e8f0;
-            text-decoration: none;
-            font-size: 1rem;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-        .nav-links a:hover {
-            color: #f39c12;
+            gap: 10px;
+            min-width: 0;
         }
 
-        /* 主視覺橫幅 */
-        header {
-            background: url('banner01.jpeg') no-repeat center center/cover;
-            color: #ffffff;
-            padding: 100px 20px;
+        .logo-img {
+            height: 48px;
+            width: auto;
+            max-width: 46vw;
+            object-fit: contain;
+            border-radius: 8px;
+            background: var(--white);
+            padding: 4px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            display: block;
+            padding: 10px 14px;
+            border-radius: 999px;
+            color: #dbe4f3;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: .98rem;
+            white-space: nowrap;
+            transition: color .25s ease, background .25s ease, transform .25s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a:focus-visible {
+            color: var(--white);
+            background: rgba(255, 255, 255, .12);
+            transform: translateY(-1px);
+        }
+
+        .nav-links a.nav-cta {
+            background: linear-gradient(135deg, var(--gold), var(--orange));
+            color: #201400;
+            box-shadow: 0 6px 16px rgba(249, 115, 22, .35);
+        }
+
+        .nav-links a.nav-cta:hover,
+        .nav-links a.nav-cta:focus-visible {
+            color: #201400;
+            background: linear-gradient(135deg, #ffd34d, #ff8a3d);
+        }
+
+        .menu-toggle {
+            display: none;
+            width: 48px;
+            height: 48px;
+            border: 0;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, .12);
+            color: var(--white);
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .menu-toggle svg {
+            width: 26px;
+            height: 26px;
+        }
+
+        /* Mobile navigation: hidden by default, opened with JS */
+        @media (max-width: 900px) {
+            .menu-toggle {
+                display: inline-flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 72px;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 8px;
+                padding: 16px 20px 24px;
+                background: rgba(13, 27, 54, .98);
+                box-shadow: 0 18px 30px rgba(0, 0, 0, .25);
+                transform: translateY(-12px);
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+                transition: opacity .25s ease, transform .25s ease, visibility .25s;
+            }
+
+            .nav-links.open {
+                opacity: 1;
+                visibility: visible;
+                pointer-events: auto;
+                transform: translateY(0);
+            }
+
+            .nav-links li {
+                width: 100%;
+            }
+
+            .nav-links a {
+                width: 100%;
+                padding: 14px 16px;
+                border-radius: 12px;
+                background: rgba(255, 255, 255, .06);
+                font-size: 1.05rem;
+                text-align: center;
+            }
+
+            .nav-links a.nav-cta {
+                margin-top: 6px;
+            }
+        }
+
+        /* ===================== Hero ===================== */
+        .hero {
+            position: relative;
+            min-height: min(88vh, 720px);
+            display: grid;
+            place-items: center;
+            padding: 130px 20px 90px;
+            color: var(--white);
             text-align: center;
-            border-bottom: 5px solid #f39c12;
+            background:
+                linear-gradient(120deg, rgba(13, 27, 54, .88), rgba(37, 99, 235, .58)),
+                url('banner01.jpeg') center / cover no-repeat;
         }
-        header h1 {
-            font-size: 2.8rem;
-            margin-bottom: 10px;
-            letter-spacing: 1px;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 7px;
+            background: linear-gradient(90deg, var(--gold), var(--orange), var(--blue));
         }
-        header h2 {
-            font-size: 1.6rem;
-            font-weight: 400;
-            margin-bottom: 25px;
-            color: #e2e8f0;
-            text-shadow: 1px 1px 6px rgba(0,0,0,0.8);
+
+        .hero-content {
+            max-width: 850px;
         }
-        header p {
-            font-size: 1.3rem;
-            margin-bottom: 35px;
-            color: #f1c40f;
+
+        .hero h1 {
+            font-size: clamp(2.3rem, 7vw, 4.2rem);
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+            text-shadow: 0 4px 22px rgba(0, 0, 0, .55);
+        }
+
+        .hero h2 {
+            font-size: clamp(1.15rem, 3.4vw, 1.8rem);
             font-weight: 500;
-            text-shadow: 1px 1px 6px rgba(0,0,0,0.8);
+            color: #e7eefb;
+            margin-bottom: 18px;
+            text-shadow: 0 3px 14px rgba(0, 0, 0, .5);
         }
-        
-        /* 按鈕容器橫向排版 */
+
+        .hero-tagline {
+            display: inline-block;
+            padding: 9px 20px;
+            border-radius: 999px;
+            background: rgba(245, 179, 1, .16);
+            border: 1px solid rgba(245, 179, 1, .55);
+            color: #ffd970;
+            font-weight: 700;
+            margin-bottom: 34px;
+        }
+
         .banner-buttons {
             display: flex;
             justify-content: center;
-            gap: 15px;
+            align-items: center;
             flex-wrap: wrap;
-            margin-top: 20px;
+            gap: 14px;
         }
-        
-        /* 諮詢按鈕基礎樣式 */
-        .btn-contact {
-            display: inline-block;
-            background-color: #f39c12;
-            color: #ffffff;
-            text-decoration: none;
-            padding: 15px 45px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            border-radius: 5px;
-            transition: background 0.3s ease, transform 0.2s ease;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            border: none;
-            cursor: pointer;
-        }
-        .btn-contact:hover {
-            background-color: #e67e22;
-            transform: translateY(-2px);
-        }
-        
-        /* WhatsApp 按鈕基礎樣式 */
-        .btn-whatsapp {
+
+        .btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
-            background-color: #25D366; /* WhatsApp 官方綠色 */
-            color: #ffffff;
+            min-height: 54px;
+            padding: 14px 34px;
+            border: 0;
+            border-radius: 999px;
+            font-size: 1.05rem;
+            font-weight: 800;
             text-decoration: none;
-            padding: 15px 35px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            border-radius: 5px;
-            transition: background 0.3s ease, transform 0.2s ease;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            border: none;
             cursor: pointer;
+            transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
         }
-        .btn-whatsapp:hover {
-            background-color: #128C7E; /* 懸停時暗綠色 */
-            transform: translateY(-2px);
+
+        .btn:hover,
+        .btn:focus-visible {
+            transform: translateY(-3px);
+            filter: brightness(1.06);
         }
+
+        .btn-contact {
+            color: #201400;
+            background: linear-gradient(135deg, var(--gold), var(--orange));
+            box-shadow: 0 12px 26px rgba(249, 115, 22, .38);
+        }
+
+        .btn-whatsapp {
+            color: var(--white);
+            background: linear-gradient(135deg, var(--green), var(--green-dark));
+            box-shadow: 0 12px 26px rgba(37, 211, 102, .35);
+        }
+
         .whatsapp-icon {
             width: 24px;
             height: 24px;
-            fill: #ffffff;
+            fill: currentColor;
         }
 
-        /* 內容區塊樣式 */
+        /* ===================== Sections ===================== */
+        main {
+            padding: 55px 0 30px;
+        }
+
         section {
-            background: #ffffff;
-            margin: 40px 0;
-            padding: 45px;
-            border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-        }
-        .section-header-title {
-            font-size: 1.8rem;
-            color: #1a365d;
-            margin-bottom: 15px;
-            border-left: 5px solid #1a365d;
-            padding-left: 15px;
-        }
-        .section-subtitle {
-            font-size: 1.3rem;
-            color: #f39c12;
-            margin-bottom: 15px;
-            font-weight: bold;
-        }
-        .section-intro {
-            font-size: 1.05rem;
-            color: #555555;
-            margin-bottom: 25px;
-            text-align: justify;
+            background: var(--white);
+            border: 1px solid rgba(37, 99, 235, .10);
+            border-radius: 20px;
+            padding: clamp(26px, 5vw, 48px);
+            margin-bottom: 32px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
         }
 
-        /* 項目列表樣式 */
-        ul {
-            list-style-type: none;
-            padding-left: 0;
+        section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--blue), var(--gold), var(--orange));
         }
+
+        .section-header-title {
+            color: var(--navy);
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            line-height: 1.35;
+            margin-bottom: 12px;
+        }
+
+        .section-subtitle {
+            display: inline-block;
+            color: #8a5b00;
+            background: rgba(245, 179, 1, .16);
+            border-left: 4px solid var(--gold);
+            padding: 6px 14px;
+            border-radius: 0 10px 10px 0;
+            font-weight: 800;
+            margin-bottom: 18px;
+        }
+
+        .section-intro {
+            color: var(--muted);
+            font-size: 1.03rem;
+            margin-bottom: 22px;
+        }
+
+        ul {
+            list-style: none;
+            display: grid;
+            gap: 12px;
+        }
+
         ul li {
             position: relative;
-            padding-left: 25px;
-            margin-bottom: 15px;
-            font-size: 1rem;
-        }
-        ul li::before {
-            content: "■";
-            position: absolute;
-            left: 0;
-            color: #f39c12;
-            font-size: 0.9rem;
-            top: 2px;
-        }
-        strong {
-            color: #111111;
-            font-weight: bold;
+            padding: 14px 16px 14px 44px;
+            background: #f8fafc;
+            border: 1px solid #e5edf8;
+            border-radius: 14px;
+            transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
         }
 
-        /* 頁尾樣式 */
-        footer {
-            background-color: #2d3748;
-            color: #ffffff;
-            text-align: center;
-            padding: 40px 20px;
-            margin-top: 60px;
-            font-size: 0.95rem;
-            border-top: 4px solid #1a365d;
+        ul li:hover {
+            transform: translateY(-2px);
+            border-color: rgba(37, 99, 235, .35);
+            box-shadow: 0 8px 20px rgba(37, 99, 235, .10);
         }
+
+        ul li::before {
+            content: "✔";
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            translate: 0 -50%;
+            display: grid;
+            place-items: center;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--blue), #60a5fa);
+            color: var(--white);
+            font-size: .72rem;
+            font-weight: 900;
+        }
+
+        strong {
+            color: var(--navy);
+        }
+
+        /* ===================== Footer ===================== */
+        footer {
+            margin-top: 45px;
+            padding: 48px 20px;
+            color: #dbe4f3;
+            text-align: center;
+            background:
+                radial-gradient(circle at 20% 20%, rgba(37, 99, 235, .25), transparent 40%),
+                linear-gradient(135deg, var(--navy-dark), #1e293b);
+            border-top: 5px solid transparent;
+            border-image: linear-gradient(90deg, var(--gold), var(--orange), var(--blue)) 1;
+        }
+
         .footer-content {
-            max-width: 600px;
+            max-width: 720px;
             margin: 0 auto;
         }
+
+        .footer-title {
+            color: var(--white);
+            font-size: 1.25rem;
+            margin-bottom: 8px;
+        }
+
         .footer-email {
-            margin-top: 15px;
-            font-size: 1.1rem;
+            margin-top: 16px;
+            font-size: 1.08rem;
         }
+
         .footer-email a {
-            color: #f1c40f;
+            color: #ffd970;
+            font-weight: 800;
             text-decoration: none;
-            font-weight: bold;
-            transition: color 0.3s;
         }
-        .footer-email a:hover {
-            color: #f39c12;
+
+        .footer-email a:hover,
+        .footer-email a:focus-visible {
+            color: var(--white);
             text-decoration: underline;
         }
 
-        /* 行動裝置介面最佳化過渡點 */
-        @media (max-width: 768px) {
-            body { padding-top: 130px; }
-            .nav-container {
+        .copyright {
+            margin-top: 22px;
+            color: #9fb0cc;
+            font-size: .92rem;
+        }
+
+        @media (max-width: 480px) {
+            .logo-img {
+                height: 42px;
+            }
+
+            .banner-buttons {
                 flex-direction: column;
-                padding: 10px;
-                height: auto;
+                width: 100%;
             }
-            .nav-links {
-                margin-top: 10px;
-                flex-wrap: wrap;
-                justify-content: center;
+
+            .btn {
+                width: 100%;
+                max-width: 340px;
             }
-            .nav-links li {
-                margin: 5px 10px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                transition: none !important;
+                scroll-behavior: auto !important;
             }
-            header h1 { font-size: 2.2rem; }
-            header h2 { font-size: 1.3rem; }
-            section { padding: 25px; }
-            .banner-buttons { flex-direction: column; gap: 10px; align-items: center; }
-            .btn-contact, .btn-whatsapp { width: 100%; max-width: 300px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- 頂部固定置頂導覽選單 -->
-    <nav>
-        <div class="nav-container">
-            <div class="logo-container">
-                <img src="logo1.jpg" alt="頌昇工程師公司 Logo" class="logo-img">
-            </div>
-            <ul class="nav-links">
-                <li><a href="#about-us">關於我們</a></li>
-                <li><a href="#aa-design">1. 改建及加建</a></li>
-                <li><a href="#rse-services">2. 法定 RSE 簽證</a></li>
-                <li><a href="#temp-works">3. 承建商臨時工程</a></li>
-                <li><a href="mailto:info@chungrising.com">聯絡我們</a></li>
-            </ul>
-        </div>
-    </nav>
+    <header class="site-header">
+        <nav class="container nav-container" aria-label="主要導覽">
+            <a class="logo-container" href="#top" aria-label="頌昇工程師公司 首頁">
+                <img src="logo1.jpg" alt="頌昇工程師公司標誌" class="logo-img">
+            </a>
 
-    <!-- 企業品牌主視覺區塊 -->
-   <header>
-        <div class="container">
-            <h1>頌昇工程師公司</h1>
-            <h2>專業註冊結構工程顧問公司</h2>
-            <p>一站式、高品質的結構工程解決方案</p>
-            <div class="banner-buttons">
-                <!-- 立即諮詢按鈕 -->
-                <a href="mailto:info@chungrising.com" class="btn-contact">立即諮詢</a>
-                
-                <!-- 🛠️ WhatsApp 連結已為您綁定正確的網址及顯示號碼 -->
-                <a href="https://wa.me/85296378770" target="_blank" class="btn-whatsapp">
-                    <svg class="whatsapp-icon" viewBox="0 0 24 24" xmlns="http://w3.org">
-                        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.713-1.457L0 24zm6.59-4.846c1.66.986 3.288 1.487 5.355 1.488 5.4 0 9.794-4.34 9.797-9.673a9.55 9.55 0 0 0-2.868-6.84 9.596 9.596 0 0 0-6.853-2.84c-5.405 0-9.803 4.342-9.806 9.676a9.59 9.59 0 0 0 1.467 5.093l-.974 3.558 3.65-.959c1.657.94 3.443 1.417 5.33 1.417zm7.42-7.588c-.33-.165-1.951-.963-2.251-1.073-.3-.109-.518-.165-.736.165-.218.329-.84 1.054-1.031 1.274-.192.219-.382.247-.712.082-.33-.165-1.393-.513-2.653-1.637-.98-.874-1.642-1.953-1.834-2.282-.192-.33-.021-.508.143-.672.148-.147.33-.384.495-.576.165-.192.22-.329.33-.548.11-.219.055-.411-.028-.576-.082-.165-.736-1.771-1.009-2.43-.267-.641-.54-.555-.736-.565l-.627-.01c-.218 0-.573.082-.873.411-.3.33-1.146 1.118-1.146 2.724 0 1.605 1.169 3.159 1.329 3.378.16.22 2.298 3.51 5.566 4.922.778.336 1.385.537 1.859.688.782.248 1.494.213 2.057.129.628-.094 1.951-.797 2.223-1.529.273-.733.273-1.36.191-1.493-.082-.132-.3-.218-.63-.383z"/>
-                    </svg>
-                    WhatsApp 聯絡我們 
-                </a>
-            </div>
-        </div>
+            <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="primaryMenu" aria-label="開啟或關閉導覽選單">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path fill="currentColor" d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/>
+                </svg>
+            </button>
+
+            <ul class="nav-links" id="primaryMenu">
+                <li><a href="#about-us">關於我們</a></li>
+                <li><a href="#aa-design">改建及加建</a></li>
+                <li><a href="#rse-services">法定 RSE 簽證</a></li>
+                <li><a href="#temp-works">承建商臨時工程</a></li>
+                <li><a class="nav-cta" href="mailto:info@chungrising.com">聯絡我們</a></li>
+            </ul>
+        </nav>
     </header>
 
-    <!-- 網頁核心內容容器 -->
-    <main class="container">
-        
-        <!-- 關於我們區塊 -->
-        <section id="about-us">
-            <h3 class="section-header-title">關於我們</h3>
-            <div class="section-subtitle">我們的核心服務</div>
-            <p class="section-intro">我們是一家專業的結構工程顧問公司，致力於為客戶提供一站式、高品質的結構工程解決方案。我們擁有經驗豐富的專業設計團隊，並全面提供註冊結構工程師（Registered Structural Engineer, RSE）的法定服務。不論是商用空間、住宅項目還是大型基礎設施，我們皆能平衡成本與結構安全，確保項目順利合法落實。</p>
-        </section>
+    <main id="top">
+        <header class="hero">
+            <div class="container hero-content">
+                <h1>頌昇工程師公司</h1>
+                <h2>專業註冊結構工程顧問公司</h2>
+                <p class="hero-tagline">一站式、高品質的結構工程解決方案</p>
 
-        <!-- 第 1 部分：改建及加建結構設計 -->
-        <section id="aa-design">
-            <h3 class="section-header-title">1. 改建及加建（A&A）結構設計</h3>
-            <p class="section-intro">我們專注透過現有樓宇的結構改造，提升資產價值，並確保順利取得屋宇署（BD）批准。</p>
-            <ul>
-                <li><strong>結構改動：</strong>新樓板開口、樓梯改造。</li>
-                <li><strong>BD 申請文件：</strong>準備結構圖則、地基圖則及結構計算書，以供正式提交屋宇署審批。</li>
-            </ul>
-        </section>
+                <div class="banner-buttons">
+                    <a href="mailto:info@chungrising.com" class="btn btn-contact">立即諮詢</a>
+                    <a href="https://wa.me/85296378770" target="_blank" rel="noopener" class="btn btn-whatsapp">
+                        <svg class="whatsapp-icon" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.713-1.457L0 24zm6.59-4.846c1.66.986 3.288 1.487 5.355 1.488 5.4 0 9.794-4.34 9.797-9.673a9.55 9.55 0 0 0-2.868-6.84 9.596 9.596 0 0 0-6.853-2.84c-5.405 0-9.803 4.342-9.806 9.676a9.59 9.59 0 0 0 1.467 5.093l-.974 3.558 3.65-.959c1.657.94 3.443 1.417 5.33 1.417zm7.42-7.588c-.33-.165-1.951-.963-2.251-1.073-.3-.109-.518-.165-.736.165-.218.329-.84 1.054-1.031 1.274-.192.219-.382.247-.712.082-.33-.165-1.393-.513-2.653-1.637-.98-.874-1.642-1.953-1.834-2.282-.192-.33-.021-.508.143-.672.148-.147.33-.384.495-.576.165-.192.22-.329.33-.548.11-.219.055-.411-.028-.576-.082-.165-.736-1.771-1.009-2.43-.267-.641-.54-.555-.736-.565l-.627-.01c-.218 0-.573.082-.873.411-.3.33-1.146 1.118-1.146 2.724 0 1.605 1.169 3.159 1.329 3.378.16.22 2.298 3.51 5.566 4.922.778.336 1.385.537 1.859.688.782.248 1.494.213 2.057.129.628-.094 1.951-.797 2.223-1.529.273-.733.273-1.36.191-1.493-.082-.132-.3-.218-.63-.383z"/>
+                        </svg>
+                        WhatsApp 聯絡我們
+                    </a>
+                </div>
+            </div>
+        </header>
 
-        <!-- 第 2 部分：法定註冊結構工程師簽證 -->
-        <section id="rse-services">
-            <h3 class="section-header-title">2. 法定 &lt;&lt;註冊結構工程師&gt;&gt; 簽證及小型工程</h3>
-            <p class="section-intro">作為合法認可的 RSE 顧問，我們提供《建築物條例》下所需的法定簽署及工程監督。</p>
-            <ul>
-                <li><strong>I 級小型工程：</strong>為複雜小型工程提供完整結構設計、計算及法定簽署（MW01 及 MW02 表格）。</li>
-                <li><strong>法定核證計劃：</strong>根據及按照合約要求提供項目 / 獨立註冊結構工程師認證服務。</li>
-            </ul>
-        </section>
+        <div class="container">
+            <section id="about-us">
+                <h3 class="section-header-title">關於我們</h3>
+                <p class="section-subtitle">我們的核心服務</p>
+                <p class="section-intro">我們是一家專業的結構工程顧問公司，致力於為客戶提供一站式、高品質的結構工程解決方案。我們擁有經驗豐富的專業設計團隊，並全面提供註冊結構工程師（Registered Structural Engineer, RSE）的法定服務。不論是商用空間、住宅項目還是大型基礎設施，我們皆能平衡成本與結構安全，確保項目順利合法落實。</p>
+            </section>
 
-        <!-- 第 3 部分：承建商臨時工程設計 -->
-        <section id="temp-works">
-            <h3 class="section-header-title">3. 承建商臨時工程</h3>
-            <p class="section-intro">我們作為承建商的靈活工程夥伴，提供快速、安全及實用的臨時工程設計。</p>
-              <ul>
-                <li><strong>拆卸工程：</strong>制定安全拆卸程序、樓宇穩定性評估及結構支撐佈置。</li>
-                <li><strong>挖掘及側向支撐（ELS）：</strong>設計鋼板樁、工字鋼支撐樁及多層支撐系統。</li>
-                 <li><strong>地盤設施及機械支撐：</strong>設計及獨立審核塔式起重機基礎、重型棚架及模板支架。</li>
-            </ul>
-        </section>
+            <section id="aa-design">
+                <h3 class="section-header-title">1. 改建及加建（A&amp;A）結構設計</h3>
+                <p class="section-intro">我們專注透過現有樓宇的結構改造，提升資產價值，並確保順利取得屋宇署（BD）批准。</p>
+                <ul>
+                    <li><strong>結構改動：</strong>新樓板開口、樓梯改造。</li>
+                    <li><strong>BD 申請文件：</strong>準備結構圖則、地基圖則及結構計算書，以供正式提交屋宇署審批。</li>
+                </ul>
+            </section>
 
-        
-        
-        
-        
-        © 2026 頌昇工程師公司 Chung Rising Engineers Company 版權所有。
-        電子郵件：info@chungrising.com
-        
+            <section id="rse-services">
+                <h3 class="section-header-title">2. 法定《註冊結構工程師》簽證及小型工程</h3>
+                <p class="section-intro">作為合法認可的 RSE 顧問，我們提供《建築物條例》下所需的法定簽署及工程監督。</p>
+                <ul>
+                    <li><strong>I 級小型工程：</strong>為複雜小型工程提供完整結構設計、計算及法定簽署（MW01 及 MW02 表格）。</li>
+                    <li><strong>法定核證計劃：</strong>根據及按照合約要求提供項目／獨立註冊結構工程師認證服務。</li>
+                </ul>
+            </section>
+
+            <section id="temp-works">
+                <h3 class="section-header-title">3. 承建商臨時工程</h3>
+                <p class="section-intro">我們作為承建商的靈活工程夥伴，提供快速、安全及實用的臨時工程設計。</p>
+                <ul>
+                    <li><strong>拆卸工程：</strong>制定安全拆卸程序、樓宇穩定性評估及結構支撐佈置。</li>
+                    <li><strong>挖掘及側向支撐（ELS）：</strong>設計鋼板樁、工字鋼支撐樁及多層支撐系統。</li>
+                    <li><strong>地盤設施及機械支撐：</strong>設計及獨立審核塔式起重機基礎、重型棚架及模板支架。</li>
+                </ul>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p class="footer-title">頌昇工程師公司</p>
+            <p>專業註冊結構工程顧問公司</p>
+            <p class="footer-email">
+                電子郵件：<a href="mailto:info@chungrising.com">info@chungrising.com</a>
+            </p>
+            <p class="copyright">© 2026 頌昇工程師公司 Chung Rising Engineers Company 版權所有。</p>
+        </div>
+    </footer>
+
+    <script>
+        const toggle = document.getElementById('menuToggle');
+        const menu = document.getElementById('primaryMenu');
+
+        toggle.addEventListener('click', () => {
+            const isOpen = menu.classList.toggle('open');
+            toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            toggle.setAttribute('aria-label', isOpen ? '關閉導覽選單' : '開啟導覽選單');
+        });
+
+        menu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.remove('open');
+                toggle.setAttribute('aria-expanded', 'false');
+                toggle.setAttribute('aria-label', '開啟導覽選單');
+            });
+        });
+
+        document.addEventListener('keydown', event => {
+            if (event.key === 'Escape' && menu.classList.contains('open')) {
+                menu.classList.remove('open');
+                toggle.setAttribute('aria-expanded', 'false');
+                toggle.setAttribute('aria-label', '開啟導覽選單');
+                toggle.focus();
+            }
+        });
+    </script>
+</body>
+</html>
